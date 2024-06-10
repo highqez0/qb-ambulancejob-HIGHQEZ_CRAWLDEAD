@@ -538,6 +538,11 @@ RegisterNetEvent('hospital:client:ambulanceAlert', function(coords, text)
 end)
 
 RegisterNetEvent('hospital:client:Revive', function()
+
+    if exports['highqez_crawldead']:IsCrawling() then  --Added Code (highqez_crawldead)
+        exports['highqez_crawldead']:EndCrawl()        --Added Code (highqez_crawldead)
+    end                                                --Added Code (highqez_crawldead)
+
     local player = PlayerPedId()
 
     if isDead or InLaststand then

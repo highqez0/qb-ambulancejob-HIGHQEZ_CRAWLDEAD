@@ -105,6 +105,17 @@ AddEventHandler('gameEventTriggered', function(event, data)
         local victim, attacker, victimDied, weapon = data[1], data[2], data[4], data[7]
         if not IsEntityAPed(victim) then return end
         if victimDied and NetworkGetPlayerIndexFromPed(victim) == PlayerId() and IsEntityDead(PlayerPedId()) then
+
+            -- Added Code (highqez_crawldead)
+            if exports['highqez_crawldead']:IsCrawling() then           
+                exports['highqez_crawldead']:EndCrawl()
+            elseif exports['highqez_crawldead']:IsDead() then
+            elseif not exports['highqez_crawldead']:IsCrawling() and not InLaststand and not isDead then
+                exports['highqez_crawldead']:StartCrawl()
+                return
+            else
+                return    
+            end
             if not InLaststand then
                 SetLaststand(true)
             elseif InLaststand and not isDead then
